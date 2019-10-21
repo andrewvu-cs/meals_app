@@ -1,32 +1,42 @@
 // Screen holds the nationality of food
 import React from "react";
-import { View, Text, StyleSheet, Button, Platform} from "react-native";
+import { View, Text, StyleSheet, FlatList, Platform } from "react-native";
 
-import { CATEGORIES } from '../data/dummy-data';
+import { CATEGORIES, MEALS } from "../data/dummy-data";
 
 const CategoryMealScreen = props => {
-  const catID = props.navigation.getParam('categoryId');
+  const renderMealItem = itemData => {
+    return (
+      <View>
+        <Text>{itemData.item.title}</Text>
+      </View>
+    );
+  };
 
-  const selectedCategory = CATEGORIES.find(cat => cat.id === catID);
+  const catID = props.navigation.getParam("categoryId");
+
+  const displayedMeals = MEALS.filter(
+    meal => meal.categoryIds.indexOf(catID) >= 0
+  );
 
   return (
     <View style={styles.screen}>
-      <Text>The CategoyMealsScreen!</Text>
-      <Text>{selectedCategory.title}</Text>
-      <Button title="GO to MEAL DETAILS" onPress={()=>{
-        props.navigation.navigate('MealDetails')
-      }}/>
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={displayedMeals}
+        renderItem={renderMealItem}
+      />
     </View>
   );
 };
 
 CategoryMealScreen.navigationOptions = navigationData => {
-  const catId = navigationData.navigation.getParam('categoryId');
+  const catId = navigationData.navigation.getParam("categoryId");
 
   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
 
   return {
-    headerTitle: selectedCategory.title,
+    headerTitle: selectedCategory.title
   };
 };
 
