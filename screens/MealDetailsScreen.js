@@ -4,14 +4,13 @@ import {
   ScrollView,
   View,
   Image,
-  Button,
   Text,
   StyleSheet
 } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from 'react-redux';
 
 import DefaultText from "../components/DefaultText";
-import { MEALS } from "../data/dummy-data";
 import HeaderButton from "../components/HeaderButton";
 
 const ListItem = props => {
@@ -21,9 +20,11 @@ const ListItem = props => {
 }
 
 const MealDetailsScreen = props => {
+  const availableMeals = useSelector(state => state.meals.meals);
   const mealId = props.navigation.getParam("mealId");
 
-  const selectedMeal = MEALS.find(meal => meal.id === mealId);
+  const selectedMeal = availableMeals.filter(meal => meal.id === mealId);
+
   return (
     <ScrollView>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
@@ -44,6 +45,7 @@ const MealDetailsScreen = props => {
   );
 };
 
+// can't use useSelector
 MealDetailsScreen.navigationOptions = navigationData => {
   const mealId = navigationData.navigation.getParam("mealId");
 

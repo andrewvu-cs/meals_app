@@ -30,6 +30,7 @@ const FiltersScreen = props => {
   const [isVegetarian, setIsVegetarian] = useState(false);
 
   // sending component information to our navigation props
+  // useCallback avoids infinite loops
   const saveFilters = useCallback(() => {
     const appliedFilters = {
       glutenFree: isGlutenFree,

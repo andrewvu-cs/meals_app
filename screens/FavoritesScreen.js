@@ -1,13 +1,14 @@
 // Screen holds the nationality of food
 import React from "react";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from "react-redux";
 
 import MealList from "../components/MealList";
 import HeaderButton from "../components/HeaderButton";
-import { MEALS } from "../data/dummy-data";
 
 const FavoritesScreen = props => {
-  const favMeals = MEALS.filter(meal => meal.id === "m1" || meal.id === "m2");
+  const favMeals = useSelector(state => state.meals.meals);
+
   return <MealList listData={favMeals} navigation={props.navigation} />;
 };
 
@@ -16,9 +17,13 @@ FavoritesScreen.navigationOptions = navData => {
     headerTitle: "Your Favorites",
     headerLeft: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item title="Favorites" iconName="ios-menu" onPress={() => {
+        <Item
+          title="Favorites"
+          iconName="ios-menu"
+          onPress={() => {
             navData.navigation.toggleDrawer();
-        }}></Item>
+          }}
+        ></Item>
       </HeaderButtons>
     )
   };
