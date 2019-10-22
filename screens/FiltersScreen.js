@@ -3,9 +3,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, Switch, Platform } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useDispatch } from 'react-redux';
 
 import HeaderButton from "../components/HeaderButton";
 import Colors from "../constants/Colors";
+import { setFilters } from '../store/actions/meals';
 
 const FilterSwitch = props => {
   return (
@@ -29,6 +31,8 @@ const FiltersScreen = props => {
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
 
+  const dispatch = useDispatch();
+
   // sending component information to our navigation props
   // useCallback avoids infinite loops
   const saveFilters = useCallback(() => {
@@ -38,7 +42,7 @@ const FiltersScreen = props => {
       vegan: isVegan,
       vegetarian: isVegetarian
     };
-    console.log(appliedFilters);
+    dispatch(setFilters(appliedFilters));
   }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
   // sending component information to our navigation props

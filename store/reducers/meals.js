@@ -1,5 +1,5 @@
 import { MEALS } from "../../data/dummy-data";
-import { TOGGLE_FAVORITE } from "../actions/meals";
+import { TOGGLE_FAVORITE, SET_FILTERS } from "../actions/meals";
 
 const initialState = {
   meals: MEALS,
@@ -24,7 +24,7 @@ const mealsReducer = (state = initialState, action) => {
           favoriteMeals: state.favoriteMeals.concat(meal)
         };
       }
-      
+
     case SET_FILTERS:
       const appliedFilters = action.filters;
       const filteredMeals = state.meals.filter(meal => {
