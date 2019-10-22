@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
-import MealItem from './MealItem';
+import MealItem from "./MealItem";
 
 const MealList = props => {
   const renderMealItem = itemData => {
@@ -15,7 +15,7 @@ const MealList = props => {
         onSelectMeal={() => {
           props.navigation.navigate({
             routeName: "MealDetails",
-            params: { mealId: itemData.item.id }
+            params: { mealId: itemData.item.id, mealTitle: itemData.item.title }
           });
         }}
       />
